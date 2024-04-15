@@ -5,6 +5,7 @@
 //  Created by Jason Scott on 4/12/24.
 //
 
+
 import SpriteKit
 import GameplayKit
 
@@ -13,8 +14,10 @@ class Game: SKScene {
     //stuff that happens once
     override func sceneDidLoad() {
         makeBackground()
+        
+        
     }
-    
+
     override func didMove(to view: SKView) {
         
      
@@ -54,6 +57,7 @@ class Game: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
     }
    
     func makeBackground(){
@@ -64,4 +68,10 @@ class Game: SKScene {
         black.yScale = 1.95
         addChild(black)
     }
+    
+    func makeButtonNode(){
+        // make code that makes a button to toggle a monkey menu of sorts
+        //thing to the right of bloons where you can buy and hover over stuff.
+    }
+    
 }
