@@ -10,6 +10,8 @@ import SpriteKit
 import GameplayKit
 
 var money = 0
+var round = 0
+var livess = 40
 
 
 
@@ -105,12 +107,12 @@ class Game: SKScene {
         moneyLabel.position = CGPoint(x: size.width * 0.85 , y: size.height * 0.83)
         addChild(moneyLabel)
         
-        roundLabel.text = "Round = \(money)"
+        roundLabel.text = "Round = \(round)"
         roundLabel.zPosition = 5
         roundLabel.position = CGPoint(x: size.width * 0.85 , y: size.height * 0.74)
         addChild(roundLabel)
         
-        livesLabel.text = "Lives = \(money)"
+        livesLabel.text = "Lives = \(livess)"
         livesLabel.zPosition = 5
         livesLabel.position = CGPoint(x: size.width * 0.85 , y: size.height * 0.65)
         addChild(livesLabel)
