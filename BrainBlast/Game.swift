@@ -66,7 +66,7 @@ class Game: SKScene {
             let touchedNode = atPoint(location)
             
             if touchedNode.name == "start" { //User pressed start roudnd button
-                print("test")
+                //print("test")
             }
         }
         
@@ -91,11 +91,19 @@ class Game: SKScene {
     }
    
     func makeBackground(){
-        let bg = SKSpriteNode(imageNamed: "bg")
+        let bg = SKSpriteNode(imageNamed: "track")
+        
         bg.position = CGPoint(x: size.width * 0.5 , y: size.height  * 0.5) //where its at
         bg.zPosition = 0 //kind of like layers in photoshop 0 furthest back 100000 foreground
-        bg.xScale = (size.height/size.width * 1.48) //prefer scaling doing like this so it i think would scale properly to other devices
-        bg.yScale = (size.height/size.width * 0.91)
+        
+        // Calculate the scale factors required to fill the screen
+        let scaleFactorX = size.width / bg.size.width
+        let scaleFactorY = size.height / bg.size.height
+        let scaleFactor = max(scaleFactorX, scaleFactorY) // Ensure it covers the whole screen
+        
+        bg.xScale = scaleFactor
+        bg.yScale = scaleFactor
+
         addChild(bg) // adds it as a child of the scene
     }
     
