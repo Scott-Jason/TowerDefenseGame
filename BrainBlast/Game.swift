@@ -36,6 +36,7 @@ class Game: SKScene {
         makeBackground()
         makeButtonNode()
         makeMenu()
+        makeStartButtonNode()
         
         
     }
@@ -60,7 +61,14 @@ class Game: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
+        for touch in touches {
+            let location = touch.location(in: self)
+            let touchedNode = atPoint(location)
+            
+            if touchedNode.name == "start" { //User pressed start roudnd button
+                print("test")
+            }
+        }
         
     }
     
@@ -83,7 +91,7 @@ class Game: SKScene {
     }
    
     func makeBackground(){
-        let bg = SKSpriteNode(imageNamed: "3")
+        let bg = SKSpriteNode(imageNamed: "bg")
         bg.position = CGPoint(x: size.width * 0.5 , y: size.height  * 0.5) //where its at
         bg.zPosition = 0 //kind of like layers in photoshop 0 furthest back 100000 foreground
         bg.xScale = (size.height/size.width * 1.48) //prefer scaling doing like this so it i think would scale properly to other devices
@@ -123,12 +131,32 @@ class Game: SKScene {
     func makeButtonNode(){
         let button = SKSpriteNode(imageNamed: "real")
         button.position = CGPoint(x:size.width * 0.8, y: size.height * 0.2)
-        button.zPosition = 3
+        button.zPosition = 5
         button.setScale(size.height/size.width * 0.2)
         addChild(button)
         
         // make code that makes a button to toggle a monkey menu of sorts
         //thing to the right of bloons where you can buy and hover over stuff.
+    }
+    
+    func makeStartButtonNode(){
+        let startButton = SKSpriteNode(imageNamed: "start")
+        startButton.zPosition = 5
+        startButton.name = "start"
+        startButton.position = CGPoint(x:size.width * 0.9, y: size.height * 0.2)
+        startButton.setScale(size.height/size.width * 0.2)
+        self.addChild(startButton)
+        
+        let startText = SKLabelNode(text: "Start Round")
+        startText.fontColor = UIColor.white
+        startText.position = CGPoint(x: 0, y: 0)
+        startText.fontSize = 110
+        startText.fontName = "Copperplate"
+        startText.verticalAlignmentMode = .center  // Align vertically at center
+        startText.horizontalAlignmentMode = .center  // Align horizontally at center
+        startText.zPosition = 6
+        startText.name = "start Round text"
+        startButton.addChild(startText)
     }
     
     
