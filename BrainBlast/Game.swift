@@ -6,6 +6,23 @@
 //
 
 
+//adds to that library
+
+extension CGPoint {
+    // Calculate the angle between two points
+    func angle(to point: CGPoint) -> CGFloat {
+        return atan2(point.y - self.y, point.x - self.x)
+    }
+}
+
+extension SKNode {
+    // Rotate the node to look at another node
+    func lookAtNode(_ node: SKNode) {
+        let angle = position.angle(to: node.position)
+        zRotation = angle - CGFloat.pi / 2  // Adjust for sprite's initial rotation
+    }
+}
+
 import SpriteKit
 import GameplayKit
 
@@ -13,13 +30,14 @@ var gameTime = 0
 var moneyAmt = 0
 var roundNum = 1
 var livess = 40
-var spriteSpeed = 380.0
+var spriteSpeed = 250.0
 var spawnNum = 0
 
 
 //whether current obj is placed or not
 var numPlaced = 0
 var placed = true
+var active = false
 
 
 
@@ -29,10 +47,13 @@ class Game: SKScene {
     //types of defense stuff
     var mokey = SKSpriteNode()
     var newMokey = SKSpriteNode()
+    var zone = SKSpriteNode()
     let spikeM = SKSpriteNode()
     let superM = SKSpriteNode()
     var clonedNode: SKSpriteNode?
+    var lastNode = SKSpriteNode()
     
+   
     
     //labels
     var moneyLabel = SKLabelNode(fontNamed: "Copperplate")
@@ -108,18 +129,51 @@ class Game: SKScene {
             let location = touch.location(in: self)
             let touchedNode = atPoint(location)
             
+            if touchedNode.name == "other"{
+                active = false
+                print("BRUH")
+                for balloon in self.children {
+                    if let balloonNode = balloon as? SKSpriteNode, balloonNode.name == "myZone"{
+                        balloonNode.alpha = 0.001
+                    }
+                }
+            }
             
             //how many bloons spawn depending on what round it is!
+            if touchedNode.name == "tower" {
+                active = true
+                touchedNode.xScale = 0.2
+                let touchedNodes = nodes(at: location)
+                for node in touchedNodes {
+                    if(node.name == "myZone"){
+                        node.alpha = 0.5
+                        //print("JRFIREF")
+                    }
+                  //  print("Found the target node:", node)
+                }
+               
+            }
+           
             if touchedNode.name == "mokey" {
                 print("pick up mokey")
                 
-                newMokey = SKSpriteNode(imageNamed: "circle")
-                
+                newMokey = SKSpriteNode(imageNamed: "pim")
                 newMokey.zPosition = 5
                 newMokey.position = location
-                newMokey.xScale = (size.height/size.width * 0.2)
-                newMokey.yScale = (size.height/size.width * 0.2)
+                newMokey.xScale = (size.height/size.width * 1)
+                newMokey.yScale = (size.height/size.width * 1)
+                newMokey.name = "tower"
                 addChild(newMokey)
+                zone = SKSpriteNode(imageNamed: "zone")
+                zone.zPosition = 4
+                
+                zone.position = location
+                zone.xScale = (size.height/size.width * 0.4)
+                zone.yScale = (size.height/size.width * 0.4)
+                zone.name = "myZone"
+                zone.alpha = 0.5
+                addChild(zone)
+                
                 placed = false
                             
             }
@@ -149,12 +203,18 @@ class Game: SKScene {
                // Update the position of the cloned node to follow the touch
                if(placed == false){
                    newMokey.position = location
+                   zone.position = location
                    print(newMokey.position.x)
                }
            }
        }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     //   clonedNode?.removeFromParent()
+      //  zone.alpha = 0.001
+        if(placed == false){
+            zone.alpha = 0.001
+        }
+        placed = true
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -179,8 +239,24 @@ class Game: SKScene {
         }
         
         // ballons getting to the end, scans children in the node and if their height less than certiain value deletes from scene and decrements lives.
+        //shouldnt have named these variables so similar sorry!
+        //basically going through each enemy and seeing if it intersects with a tower
         for balloon in self.children {
             if let balloonNode = balloon as? SKSpriteNode, balloonNode.name == "enemy"{
+                for node in self.children {
+                    if node.name == "myZone" {
+                        if let zoneNode = node as? SKSpriteNode, balloonNode.intersects(zoneNode) {
+                            for node in self.children {
+                                if let tower = node as? SKSpriteNode, tower.name == "tower"{
+                                    tower.lookAtNode(balloonNode)
+                                }
+                            }
+                           // make this tower towerNode.lookAtNode(balloonNode)
+                           // balloonNode.removeFromParent()
+                            //inside the zone
+                        }
+                    }
+                }
                 if(balloonNode.position.y <= size.height * 0.01){
                     print("YES")
                     balloonNode.removeFromParent()
@@ -263,12 +339,12 @@ class Game: SKScene {
         addChild(livesLabel)
         //add more to this menu icons etc
         //uhh then do rough draft of first dart moneky
-        let monkeyTest = SKSpriteNode(imageNamed: "circle")
+        let monkeyTest = SKSpriteNode(imageNamed: "pim")
         monkeyTest.name = "mokey"
         monkeyTest.position = CGPoint(x:size.width * 0.81, y: size.height * 0.55)
         monkeyTest.zPosition = 5
-        monkeyTest.xScale = (size.height/size.width * 0.2)
-        monkeyTest.yScale = (size.height/size.width * 0.2)
+        monkeyTest.xScale = (size.height/size.width * 1)
+        monkeyTest.yScale = (size.height/size.width * 1)
         
         addChild(monkeyTest)
     }
@@ -277,6 +353,7 @@ class Game: SKScene {
         let button = SKSpriteNode(imageNamed: "real")
         button.position = CGPoint(x:size.width * 0.8, y: size.height * 0.2)
         button.zPosition = 5
+        button.name = "other"
         button.setScale(size.height/size.width * 0.2)
         addChild(button)
         
@@ -326,7 +403,7 @@ class Game: SKScene {
     }
     
     func placeSomething(){
-        mokey = SKSpriteNode(imageNamed: "circle")
+        mokey = SKSpriteNode(imageNamed: "pim")
         mokey.name = String(numPlaced)
         
     }
