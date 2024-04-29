@@ -17,14 +17,21 @@ var spriteSpeed = 380.0
 var spawnNum = 0
 
 
+//whether current obj is placed or not
+var numPlaced = 0
+var placed = true
+
+
 
 class Game: SKScene {
     var ball = SKSpriteNode(imageNamed: "ball")
     var pathing = SKAction()
     //types of defense stuff
-    let dartM = SKSpriteNode()
+    var mokey = SKSpriteNode()
+    var newMokey = SKSpriteNode()
     let spikeM = SKSpriteNode()
     let superM = SKSpriteNode()
+    var clonedNode: SKSpriteNode?
     
     
     //labels
@@ -32,7 +39,10 @@ class Game: SKScene {
     var roundLabel = SKLabelNode(fontNamed: "Copperplate")
     var livesLabel = SKLabelNode(fontNamed: "Copperplate")
 
-   
+    let blimbleeTexture: [SKTexture] = [
+        SKTexture(imageNamed: "b1"),
+        SKTexture(imageNamed: "b2")
+      ]
     
     //stuff that happens once at launch
     override func sceneDidLoad() {
@@ -57,7 +67,7 @@ class Game: SKScene {
         let followPath = SKAction.follow(path.cgPath, asOffset: false, orientToPath: false, speed: spriteSpeed)
         pathing = SKAction.sequence([followPath])
         
-      
+        
        // pathing = SKAction.sequence([action3, action4, action5, action6, action7,action8, action9, action10, action11])
         //.sequence lets you chain back to back SKactions, .group lets you do them simultaneously!
         
@@ -67,6 +77,7 @@ class Game: SKScene {
         makeButtonNode()
         makeMenu()
         makeStartButtonNode()
+      
         
        // makeBalloon()
         
@@ -99,6 +110,20 @@ class Game: SKScene {
             
             
             //how many bloons spawn depending on what round it is!
+            if touchedNode.name == "mokey" {
+                print("pick up mokey")
+                
+                newMokey = SKSpriteNode(imageNamed: "circle")
+                
+                newMokey.zPosition = 5
+                newMokey.position = location
+                newMokey.xScale = (size.height/size.width * 0.2)
+                newMokey.yScale = (size.height/size.width * 0.2)
+                addChild(newMokey)
+                placed = false
+                            
+            }
+            
             if touchedNode.name == "start" { //User pressed start roudnd button
                 print("test")
                 switch roundNum{
@@ -118,11 +143,18 @@ class Game: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
+           for touch in touches {
+               let location = touch.location(in: self)
+               
+               // Update the position of the cloned node to follow the touch
+               if(placed == false){
+                   newMokey.position = location
+                   print(newMokey.position.x)
+               }
+           }
+       }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-       
+    //   clonedNode?.removeFromParent()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -133,6 +165,13 @@ class Game: SKScene {
     override func update(_ currentTime: TimeInterval) {
         gameTime += 1
         
+        /*
+        if(placed == false){
+            for balloon in self.children {
+                if let balloonNode = balloon as? SKSpriteNode, balloonNode.name == String(numPlaced - 1){
+                    balloonNode.position = CGPOINT
+            
+        } */
         
         if(spawnNum > 0 && gameTime % 30 == 0){
             makeBalloon()
@@ -224,6 +263,14 @@ class Game: SKScene {
         addChild(livesLabel)
         //add more to this menu icons etc
         //uhh then do rough draft of first dart moneky
+        let monkeyTest = SKSpriteNode(imageNamed: "circle")
+        monkeyTest.name = "mokey"
+        monkeyTest.position = CGPoint(x:size.width * 0.81, y: size.height * 0.55)
+        monkeyTest.zPosition = 5
+        monkeyTest.xScale = (size.height/size.width * 0.2)
+        monkeyTest.yScale = (size.height/size.width * 0.2)
+        
+        addChild(monkeyTest)
     }
     
     func makeButtonNode(){
@@ -259,17 +306,31 @@ class Game: SKScene {
     
     func makeBalloon(){
         
-        ball = SKSpriteNode(imageNamed: "ball")
+        ball = SKSpriteNode(texture: blimbleeTexture[0])
+       // let cycleTime = SKAction.animate(with:blimbleeTexture, timePerFrame: 0.2)
+       // let repeatForever = SKAction.repeatForever(cycleTime)
+        
         ball.name = "enemy"
-        ball.position = CGPoint(x: size.width * -0.1 , y: size.height * 0.6)
+        // negative 0.1
+        ball.position = CGPoint(x: size.width * 0.1 , y: size.height * 0.6)
         ball.zPosition = 5
-        ball.xScale = (size.height/size.width * 0.05)
-        ball.yScale = (size.height/size.width * 0.05)
+        ball.xScale = (size.height/size.width * 0.6)
+        ball.yScale = (size.height/size.width * 0.6)
         addChild(ball)
-        ball.run(pathing)
+        let cycleTime = SKAction.animate(with:blimbleeTexture, timePerFrame: 0.1)
+        let repeatForever = SKAction.repeatForever(cycleTime)
+        let group = SKAction.group([pathing, repeatForever])
+        ball.run(group)
+        
         
     }
     
+    func placeSomething(){
+        mokey = SKSpriteNode(imageNamed: "circle")
+        mokey.name = String(numPlaced)
+        
+    }
+  
     
     
 }
