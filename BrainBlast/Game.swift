@@ -6,7 +6,7 @@
 //
 
 
-//adds to that library
+//two functions for how the towers look at the enemies
 
 extension CGPoint {
     // Calculate the angle between two points
@@ -26,40 +26,44 @@ extension SKNode {
 import SpriteKit
 import GameplayKit
 
+    //self explanatory things sprite speed is how fast, spawn num how many enemies
 var gameTime = 0
-var moneyAmt = 0
-var roundNum = 1
+var moneyAmt = 25
+var roundNum = 0
 var livess = 40
 var spriteSpeed = 250.0
 var spawnNum = 0
 
 
-//whether current obj is placed or not
+
+//whether current obj is placed or not delete maybe
 var numPlaced = 0
 var placed = true
 var active = false
 
-
-
 class Game: SKScene {
+    
+    
+    var towerArr = [towers]()
     var ball = SKSpriteNode(imageNamed: "ball")
     var pathing = SKAction()
     //types of defense stuff
     var mokey = SKSpriteNode()
-    var newMokey = SKSpriteNode()
+    var newTower = towers()
+    var currentTower: towers?
     var zone = SKSpriteNode()
     let spikeM = SKSpriteNode()
     let superM = SKSpriteNode()
-    var clonedNode: SKSpriteNode?
-    var lastNode = SKSpriteNode()
-    
-   
+  
+    var button = SKSpriteNode()
+    var startButton = SKSpriteNode()
     
     //labels
     var moneyLabel = SKLabelNode(fontNamed: "Copperplate")
     var roundLabel = SKLabelNode(fontNamed: "Copperplate")
     var livesLabel = SKLabelNode(fontNamed: "Copperplate")
 
+    //blimblee running loop
     let blimbleeTexture: [SKTexture] = [
         SKTexture(imageNamed: "b1"),
         SKTexture(imageNamed: "b2")
@@ -67,8 +71,10 @@ class Game: SKScene {
     
     //stuff that happens once at launch
     override func sceneDidLoad() {
-     //   ball.position = CGPoint(x: size.width * -0.1 , y: size.height * 0.6)
         
+        
+     
+        //fixed code for how the enemies move throughout the background
         let path = UIBezierPath()
         path.move(to: CGPoint(x: size.width * -0.1 , y: size.height * 0.6))
         path.addLine(to: CGPoint(x: size.width * 0.44, y: size.height * 0.6))
@@ -128,69 +134,60 @@ class Game: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             let touchedNode = atPoint(location)
+            //touchedNode gets access to the node that was just touched
             
-            if touchedNode.name == "other"{
-                active = false
-                print("BRUH")
-                for balloon in self.children {
-                    if let balloonNode = balloon as? SKSpriteNode, balloonNode.name == "myZone"{
-                        balloonNode.alpha = 0.001
-                    }
-                }
-            }
+            
             
             //how many bloons spawn depending on what round it is!
-            if touchedNode.name == "tower" {
-                active = true
-                touchedNode.xScale = 0.2
-                let touchedNodes = nodes(at: location)
-                for node in touchedNodes {
-                    if(node.name == "myZone"){
-                        node.alpha = 0.5
-                        //print("JRFIREF")
-                    }
-                  //  print("Found the target node:", node)
+            for tower in towerArr{
+                if touchedNode == tower.tower{
+                    tower.range.alpha = 0.5
+                    //handle upgrades and shit here
+                    print("YES!")
                 }
-               
             }
            
-            if touchedNode.name == "mokey" {
-                print("pick up mokey")
-                
-                newMokey = SKSpriteNode(imageNamed: "pim")
-                newMokey.zPosition = 5
-                newMokey.position = location
-                newMokey.xScale = (size.height/size.width * 1)
-                newMokey.yScale = (size.height/size.width * 1)
-                newMokey.name = "tower"
-                addChild(newMokey)
-                zone = SKSpriteNode(imageNamed: "zone")
-                zone.zPosition = 4
-                
-                zone.position = location
-                zone.xScale = (size.height/size.width * 0.4)
-                zone.yScale = (size.height/size.width * 0.4)
-                zone.name = "myZone"
-                zone.alpha = 0.5
-                addChild(zone)
-                
+            if (touchedNode.name == "buyPim" && moneyAmt >= 10) {
+                moneyAmt -= 10
                 placed = false
-                            
+               newTower = towers()
+               newTower.tower = SKSpriteNode(imageNamed: "pim")
+                newTower.tower.zPosition = 5
+                newTower.tower.xScale = (size.height/size.width * 1)
+                newTower.tower.yScale = (size.height/size.width * 1)
+                addChild(newTower.tower)
+               newTower.range = SKSpriteNode(imageNamed: "zone")
+                newTower.range.zPosition = 4
+                newTower.range.alpha = 0.5
+                newTower.range.xScale = (size.height/size.width * 1.4)
+                newTower.range.yScale = (size.height/size.width * 1.4)
+                addChild(newTower.range)
+                towerArr.append(newTower)
+                
+                
+                
             }
             
-            if touchedNode.name == "start" { //User pressed start roudnd button
+            if touchedNode == startButton { //User pressed start roudnd button
+                roundNum += 1
                 print("test")
                 switch roundNum{
                 case 1:
                     spawnNum = 5
                 case 2:
                     spawnNum = 10
+                case 3:
+                    spawnNum = 20
+                case 4:
+                    spawnNum = 40
                 default:
                     print("yipee")
                 }
-           
-                
-                
+            }
+            if touchedNode == button{
+                for tower in towerArr{
+                    tower.range.alpha = 0.001
+                }
             }
         }
         
@@ -202,17 +199,16 @@ class Game: SKScene {
                
                // Update the position of the cloned node to follow the touch
                if(placed == false){
-                   newMokey.position = location
-                   zone.position = location
-                   print(newMokey.position.x)
+                   newTower.tower.position = location
+                   newTower.range.position = location
+                   print(newTower.tower.position.x)
                }
            }
        }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //   clonedNode?.removeFromParent()
-      //  zone.alpha = 0.001
+   
         if(placed == false){
-            zone.alpha = 0.001
+            newTower.range.alpha = 0.001
         }
         placed = true
     }
@@ -224,16 +220,14 @@ class Game: SKScene {
     //where balloons spawn and despawn
     override func update(_ currentTime: TimeInterval) {
         gameTime += 1
+        //labels updating
+        moneyLabel.text = "Money = \(moneyAmt)"
+        roundLabel.text = "Round = \(roundNum)"
+        livesLabel.text = "Lives = \(livess)"
         
-        /*
-        if(placed == false){
-            for balloon in self.children {
-                if let balloonNode = balloon as? SKSpriteNode, balloonNode.name == String(numPlaced - 1){
-                    balloonNode.position = CGPOINT
-            
-        } */
+     
         
-        if(spawnNum > 0 && gameTime % 30 == 0){
+        if(spawnNum > 0 && gameTime % 15 == 0){
             makeBalloon()
             spawnNum -= 1
         }
@@ -241,43 +235,34 @@ class Game: SKScene {
         // ballons getting to the end, scans children in the node and if their height less than certiain value deletes from scene and decrements lives.
         //shouldnt have named these variables so similar sorry!
         //basically going through each enemy and seeing if it intersects with a tower
-        for balloon in self.children {
-            if let balloonNode = balloon as? SKSpriteNode, balloonNode.name == "enemy"{
-                for node in self.children {
-                    if node.name == "myZone" {
-                        if let zoneNode = node as? SKSpriteNode, balloonNode.intersects(zoneNode) {
-                            for node in self.children {
-                                if let tower = node as? SKSpriteNode, tower.name == "tower"{
-                                    tower.lookAtNode(balloonNode)
-                                }
-                            }
-                           // make this tower towerNode.lookAtNode(balloonNode)
-                           // balloonNode.removeFromParent()
-                            //inside the zone
-                        }
+        for nodes in self.children {
+            if let balloonNode = nodes as? SKSpriteNode, balloonNode.name == "enemy"{
+                
+                for tower in towerArr{
+                    
+                    
+                    if(balloonNode.intersects(tower.range)){
+                        tower.tower.lookAtNode(balloonNode)
+                        tower.shoot(enemy: balloonNode, scene: self)
+                       // balloonNode.removeFromParent()
+                    }
+                    if(tower.bulletAllowed == false){
+                        tower.bulletWork(enemy: balloonNode)
                     }
                 }
+                
+                
                 if(balloonNode.position.y <= size.height * 0.01){
                     print("YES")
                     balloonNode.removeFromParent()
                     livess -= 1
-                    livesLabel.text = "Lives = \(livess)"
+                    
                     
                 }
             }
         }
-        /*
-        for nodes in self.children{
-            if let bloon = nodes as? SKSpriteNode, bloon.name == "ball"{
-                print("i exist")
-            }
-        }
-        */
         
-        
-        
-        
-        
+       
         
         // Called before each frame is rendered
         if(gameTime % 90 == 0){
@@ -302,13 +287,14 @@ class Game: SKScene {
 
         addChild(bg) // adds it as a child of the scene
         
+        //this was just for pathing, like how far each should move thing
         let g = SKSpriteNode(imageNamed:"grid")
         g.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         g.zPosition = 2
         g.xScale = 3.54
         g.yScale = 1.62
         g.alpha = 0.3
-       // addChild(g)
+       // addChild(g) (not shown)
         
     }
     
@@ -323,37 +309,46 @@ class Game: SKScene {
         //menu.xScale = (size.height/size.width * 1.1)
         addChild(menu)
         
+        // money label
         moneyLabel.text = "Money = \(moneyAmt)"
         moneyLabel.zPosition = 5
         moneyLabel.position = CGPoint(x: size.width * 0.88 , y: size.height * 0.83)
         addChild(moneyLabel)
         
+        // round label
         roundLabel.text = "Round = \(roundNum)"
         roundLabel.zPosition = 5
         roundLabel.position = CGPoint(x: size.width * 0.88 , y: size.height * 0.74)
         addChild(roundLabel)
         
+        // lives label
         livesLabel.text = "Lives = \(livess)"
         livesLabel.zPosition = 5
         livesLabel.position = CGPoint(x: size.width * 0.88 , y: size.height * 0.65)
         addChild(livesLabel)
-        //add more to this menu icons etc
-        //uhh then do rough draft of first dart moneky
-        let monkeyTest = SKSpriteNode(imageNamed: "pim")
-        monkeyTest.name = "mokey"
-        monkeyTest.position = CGPoint(x:size.width * 0.81, y: size.height * 0.55)
-        monkeyTest.zPosition = 5
-        monkeyTest.xScale = (size.height/size.width * 1)
-        monkeyTest.yScale = (size.height/size.width * 1)
         
-        addChild(monkeyTest)
+        
+        let pimTower = SKSpriteNode(imageNamed: "pim")
+        pimTower.name = "buyPim"
+        pimTower.position = CGPoint(x:size.width * 0.81, y: size.height * 0.55)
+        pimTower.zPosition = 5
+        pimTower.xScale = (size.height/size.width * 1)
+        pimTower.yScale = (size.height/size.width * 1)
+        addChild(pimTower)
+        let pimLabel = SKLabelNode(text: "costs 10")
+        pimLabel.zPosition = 5
+        pimLabel.position = CGPoint(x:size.width * 0.81, y: size.height * 0.45)
+        pimLabel.fontSize = 15
+        pimLabel.fontName = "Times New Roman"
+        addChild(pimLabel)
+        
     }
     
     func makeButtonNode(){
-        let button = SKSpriteNode(imageNamed: "real")
+        button = SKSpriteNode(imageNamed: "real")
         button.position = CGPoint(x:size.width * 0.8, y: size.height * 0.2)
         button.zPosition = 5
-        button.name = "other"
+        button.name = "back"
         button.setScale(size.height/size.width * 0.2)
         addChild(button)
         
@@ -362,7 +357,7 @@ class Game: SKScene {
     }
     
     func makeStartButtonNode(){
-        let startButton = SKSpriteNode(imageNamed: "start")
+        startButton = SKSpriteNode(imageNamed: "start")
         startButton.zPosition = 5
         startButton.name = "start"
         startButton.position = CGPoint(x:size.width * 0.9, y: size.height * 0.2)
@@ -382,11 +377,9 @@ class Game: SKScene {
     }
     
     func makeBalloon(){
-        
         ball = SKSpriteNode(texture: blimbleeTexture[0])
        // let cycleTime = SKAction.animate(with:blimbleeTexture, timePerFrame: 0.2)
        // let repeatForever = SKAction.repeatForever(cycleTime)
-        
         ball.name = "enemy"
         // negative 0.1
         ball.position = CGPoint(x: size.width * 0.1 , y: size.height * 0.6)
@@ -399,14 +392,8 @@ class Game: SKScene {
         let group = SKAction.group([pathing, repeatForever])
         ball.run(group)
         
-        
     }
     
-    func placeSomething(){
-        mokey = SKSpriteNode(imageNamed: "pim")
-        mokey.name = String(numPlaced)
-        
-    }
   
     
     
