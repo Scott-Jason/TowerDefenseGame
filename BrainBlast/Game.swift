@@ -59,7 +59,7 @@ class Game: SKScene {
     var startButton = SKSpriteNode()
     
     //labels
-    var moneyLabel = SKLabelNode(fontNamed: "Copperplate")
+    var moneyLabel = SKLabelNode(fontNamed: "Chalkduster")
     var roundLabel = SKLabelNode(fontNamed: "Copperplate")
     var livesLabel = SKLabelNode(fontNamed: "Copperplate")
 
@@ -142,6 +142,7 @@ class Game: SKScene {
             for tower in towerArr{
                 if touchedNode == tower.tower{
                     tower.range.alpha = 0.5
+                    
                     //handle upgrades and shit here
                     print("YES!")
                 }
@@ -337,7 +338,7 @@ class Game: SKScene {
         addChild(pimTower)
         let pimLabel = SKLabelNode(text: "costs 10")
         pimLabel.zPosition = 5
-        pimLabel.position = CGPoint(x:size.width * 0.81, y: size.height * 0.45)
+        pimLabel.position = CGPoint(x:size.width * 0.81, y: size.height * 0.46)
         pimLabel.fontSize = 15
         pimLabel.fontName = "Times New Roman"
         addChild(pimLabel)
@@ -346,7 +347,7 @@ class Game: SKScene {
     
     func makeButtonNode(){
         button = SKSpriteNode(imageNamed: "real")
-        button.position = CGPoint(x:size.width * 0.8, y: size.height * 0.2)
+        button.position = CGPoint(x:size.width * 0.8, y: size.height * 0.15)
         button.zPosition = 5
         button.name = "back"
         button.setScale(size.height/size.width * 0.2)
@@ -360,7 +361,7 @@ class Game: SKScene {
         startButton = SKSpriteNode(imageNamed: "start")
         startButton.zPosition = 5
         startButton.name = "start"
-        startButton.position = CGPoint(x:size.width * 0.9, y: size.height * 0.2)
+        startButton.position = CGPoint(x:size.width * 0.9, y: size.height * 0.15)
         startButton.setScale(size.height/size.width * 0.2)
         self.addChild(startButton)
         
@@ -378,8 +379,6 @@ class Game: SKScene {
     
     func makeBalloon(){
         ball = SKSpriteNode(texture: blimbleeTexture[0])
-       // let cycleTime = SKAction.animate(with:blimbleeTexture, timePerFrame: 0.2)
-       // let repeatForever = SKAction.repeatForever(cycleTime)
         ball.name = "enemy"
         // negative 0.1
         ball.position = CGPoint(x: size.width * 0.1 , y: size.height * 0.6)
@@ -395,6 +394,4 @@ class Game: SKScene {
     }
     
   
-    
-    
 }

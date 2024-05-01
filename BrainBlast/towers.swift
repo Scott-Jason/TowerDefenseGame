@@ -14,6 +14,7 @@ class towers{
     var bulletAllowed = true
     var tower = SKSpriteNode()
     var range = SKSpriteNode()
+    var bulletSpeed = 0.28
     
     init(){
         tower = SKSpriteNode()
@@ -30,7 +31,7 @@ class towers{
             bullet.name = "bullet"
             bullet.zPosition = 20
             bullet.position = tower.position
-            let moveAction = SKAction.move(to: pos, duration: 0.28)
+            let moveAction = SKAction.move(to: pos, duration: bulletSpeed)
             scene.addChild(bullet)
             
             bullet.run(moveAction){
