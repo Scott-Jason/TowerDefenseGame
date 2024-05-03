@@ -63,6 +63,13 @@ class Game: SKScene {
     var roundLabel = SKLabelNode(fontNamed: "Copperplate")
     var livesLabel = SKLabelNode(fontNamed: "Copperplate")
 
+    
+    
+    let blimTex2: [SKTexture] = [
+        SKTexture(imageNamed: "a1"),
+        SKTexture(imageNamed: "a2")
+    ]
+    
     //blimblee running loop
     let blimbleeTexture: [SKTexture] = [
         SKTexture(imageNamed: "b1"),
@@ -101,7 +108,6 @@ class Game: SKScene {
 
         
         makeBackground()
-        makeButtonNode()
         makeMenu()
         makeStartButtonNode()
       
@@ -151,13 +157,14 @@ class Game: SKScene {
             if (touchedNode.name == "buyPim" && moneyAmt >= 10) {
                 moneyAmt -= 10
                 placed = false
-               newTower = towers()
-               newTower.tower = SKSpriteNode(imageNamed: "pim")
+                newTower = towers()
+                
+                newTower.tower = SKSpriteNode(imageNamed: "pim")
                 newTower.tower.zPosition = 5
                 newTower.tower.xScale = (size.height/size.width * 1)
                 newTower.tower.yScale = (size.height/size.width * 1)
                 addChild(newTower.tower)
-               newTower.range = SKSpriteNode(imageNamed: "zone")
+                newTower.range = SKSpriteNode(imageNamed: "zone")
                 newTower.range.zPosition = 4
                 newTower.range.alpha = 0.5
                 newTower.range.xScale = (size.height/size.width * 1.4)
@@ -168,6 +175,29 @@ class Game: SKScene {
                 
                 
             }
+            
+            if (touchedNode.name == "buyBoss" && moneyAmt >= 10) {
+                moneyAmt -= 10
+                placed = false
+                newTower = towers()
+                newTower.bulletSpeed = 0.12
+                newTower.tower = SKSpriteNode(imageNamed: "boss")
+                newTower.tower.zPosition = 5
+                newTower.tower.xScale = (size.height/size.width * 1)
+                newTower.tower.yScale = (size.height/size.width * 1)
+                addChild(newTower.tower)
+                newTower.range = SKSpriteNode(imageNamed: "zone")
+                newTower.range.zPosition = 4
+                newTower.range.alpha = 0.5
+                newTower.range.xScale = (size.height/size.width * 1.4)
+                newTower.range.yScale = (size.height/size.width * 1.4)
+                addChild(newTower.range)
+                towerArr.append(newTower)
+                
+                
+                
+            }
+            
             
             if touchedNode == startButton { //User pressed start roudnd button
                 roundNum += 1
@@ -343,25 +373,28 @@ class Game: SKScene {
         pimLabel.fontName = "Times New Roman"
         addChild(pimLabel)
         
-    }
-    
-    func makeButtonNode(){
-        button = SKSpriteNode(imageNamed: "real")
-        button.position = CGPoint(x:size.width * 0.8, y: size.height * 0.15)
-        button.zPosition = 5
-        button.name = "back"
-        button.setScale(size.height/size.width * 0.2)
-        addChild(button)
+        let bossTower = SKSpriteNode(imageNamed: "boss")
+        bossTower.name = "buyBoss"
+        bossTower.position = CGPoint(x:size.width * 0.92, y: size.height * 0.55)
+        bossTower.zPosition = 5
+        bossTower.xScale = (size.height/size.width * 1)
+        bossTower.yScale = (size.height/size.width * 1)
+        addChild(bossTower)
+        let bossLabel = SKLabelNode(text: "costs 30")
+        bossLabel.zPosition = 5
+        bossLabel.position = CGPoint(x:size.width * 0.92, y: size.height * 0.46)
+        bossLabel.fontSize = 15
+        bossLabel.fontName = "Times New Roman"
+        addChild(bossLabel)
         
-        // make code that makes a button to toggle a monkey menu of sorts
-        //thing to the right of bloons where you can buy and hover over stuff.
+        
     }
     
     func makeStartButtonNode(){
         startButton = SKSpriteNode(imageNamed: "start")
         startButton.zPosition = 5
         startButton.name = "start"
-        startButton.position = CGPoint(x:size.width * 0.9, y: size.height * 0.15)
+        startButton.position = CGPoint(x:size.width * 0.88, y: size.height * 0.15)
         startButton.setScale(size.height/size.width * 0.2)
         self.addChild(startButton)
         
@@ -380,6 +413,7 @@ class Game: SKScene {
     func makeBalloon(){
         ball = SKSpriteNode(texture: blimbleeTexture[0])
         ball.name = "enemy"
+        ball.alpha = 1.0
         // negative 0.1
         ball.position = CGPoint(x: size.width * 0.1 , y: size.height * 0.6)
         ball.zPosition = 5
