@@ -23,8 +23,6 @@ extension SKNode {
     }
 }
 
-//test2
-
 import SpriteKit
 import GameplayKit
 
@@ -61,7 +59,7 @@ class Game: SKScene {
     var startButton = SKSpriteNode()
     
     //labels
-    var moneyLabel = SKLabelNode(fontNamed: "Chalkduster")
+    var moneyLabel = SKLabelNode(fontNamed: "Copperplate")
     var roundLabel = SKLabelNode(fontNamed: "Copperplate")
     var livesLabel = SKLabelNode(fontNamed: "Copperplate")
 
@@ -144,8 +142,6 @@ class Game: SKScene {
             let touchedNode = atPoint(location)
             //touchedNode gets access to the node that was just touched
             
-            
-            
             //how many bloons spawn depending on what round it is!
             for tower in towerArr{
                 if touchedNode == tower.tower{
@@ -178,8 +174,8 @@ class Game: SKScene {
                 
             }
             
-            if (touchedNode.name == "buyBoss" && moneyAmt >= 10) {
-                moneyAmt -= 10
+            if (touchedNode.name == "buyBoss" && moneyAmt >= 30) {
+                moneyAmt -= 30
                 placed = false
                 newTower = towers()
                 newTower.bulletSpeed = 0.12
@@ -195,9 +191,6 @@ class Game: SKScene {
                 newTower.range.yScale = (size.height/size.width * 1.4)
                 addChild(newTower.range)
                 towerArr.append(newTower)
-                
-                
-                
             }
             
             
@@ -213,6 +206,14 @@ class Game: SKScene {
                     spawnNum = 20
                 case 4:
                     spawnNum = 40
+                case 5:
+                    spawnNum = 60
+                case 6:
+                    spawnNum = 80
+                case 7:
+                    spawnNum = 100
+                case 8:
+                    spawnNum = 120
                 default:
                     print("yipee")
                 }
@@ -280,7 +281,12 @@ class Game: SKScene {
                        // balloonNode.removeFromParent()
                     }
                     if(tower.bulletAllowed == false){
-                        tower.bulletWork(enemy: balloonNode)
+                        if(roundNum < 5){
+                            tower.bulletWork(enemy: balloonNode, valToSubtract: 0.01)
+                        }
+                        if(roundNum >= 5 && roundNum <= 8){
+                            tower.bulletWork(enemy: balloonNode, valToSubtract: 0.005) //takes 3 hits now 
+                        }
                     }
                 }
                 
@@ -390,18 +396,6 @@ class Game: SKScene {
         addChild(bossLabel)
         
         
-    }
-    
-    func makeButtonNode(){
-        button = SKSpriteNode(imageNamed: "real")
-        button.position = CGPoint(x:size.width * 0.8, y: size.height * 0.15)
-        button.zPosition = 5
-        button.name = "back"
-        button.setScale(size.height/size.width * 0.2)
-        addChild(button)
-        
-        // make code that makes a button to toggle a monkey menu of sorts
-        //thing to the right of bloons where you can buy and hover over stuff.
     }
     
     func makeStartButtonNode(){
