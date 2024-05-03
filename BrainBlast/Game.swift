@@ -390,6 +390,18 @@ class Game: SKScene {
         
     }
     
+    func makeButtonNode(){
+        button = SKSpriteNode(imageNamed: "real")
+        button.position = CGPoint(x:size.width * 0.8, y: size.height * 0.15)
+        button.zPosition = 5
+        button.name = "back"
+        button.setScale(size.height/size.width * 0.2)
+        addChild(button)
+        
+        // make code that makes a button to toggle a monkey menu of sorts
+        //thing to the right of bloons where you can buy and hover over stuff.
+    }
+    
     func makeStartButtonNode(){
         startButton = SKSpriteNode(imageNamed: "start")
         startButton.zPosition = 5
