@@ -15,6 +15,12 @@ class towers{
     var tower = SKSpriteNode()
     var range = SKSpriteNode()
     var bulletSpeed = 0.28
+   
+    
+    let blimTex2: [SKTexture] = [
+        SKTexture(imageNamed: "a1"),
+        SKTexture(imageNamed: "a2")
+    ]
     
     init(){
         tower = SKSpriteNode()
@@ -47,7 +53,17 @@ class towers{
             if(enemy.intersects(bullet)){
                 lock = false
                 moneyAmt += 1
-                enemy.removeFromParent()
+                enemy.alpha = enemy.alpha - 0.01
+                print(enemy.alpha)
+                if(enemy.alpha <= 0.99){
+                    let cycleTime = SKAction.animate(with:blimTex2, timePerFrame: 0.1)
+                    let repeatForever = SKAction.repeatForever(cycleTime)
+                    enemy.run(repeatForever)
+                }
+                if(enemy.alpha <= 0.98){
+                    enemy.removeFromParent()
+                }
+                
               
             }
         }
