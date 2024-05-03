@@ -295,11 +295,16 @@ class Game: SKScene {
                     print("YES")
                     balloonNode.removeFromParent()
                     livess -= 1
+                    if livess <= 0 {
+                        resetGame()
+                        return  // Ensure no further updates if game is reset
+                    }
                     
                     
                 }
             }
         }
+    
         
        
         
@@ -434,6 +439,29 @@ class Game: SKScene {
         ball.run(group)
         
     }
+    
+    func resetGame() {
+        gameTime = 0
+        moneyAmt = 25
+        roundNum = 0
+        livess = 40
+        spriteSpeed = 250.0
+        spawnNum = 0
+
+        self.enumerateChildNodes(withName: "enemy") { node, _ in
+            node.removeFromParent()
+        }
+
+        // removes the towers
+        for tower in towerArr {
+            tower.tower.removeFromParent()
+            tower.range.removeFromParent()
+        }
+        towerArr.removeAll() // Clears the array of towers
+        
+    }
+
+
     
   
 }
