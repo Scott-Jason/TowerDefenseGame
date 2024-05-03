@@ -23,8 +23,6 @@ extension SKNode {
     }
 }
 
-//test2
-
 import SpriteKit
 import GameplayKit
 
@@ -61,7 +59,7 @@ class Game: SKScene {
     var startButton = SKSpriteNode()
     
     //labels
-    var moneyLabel = SKLabelNode(fontNamed: "Chalkduster")
+    var moneyLabel = SKLabelNode(fontNamed: "Copperplate")
     var roundLabel = SKLabelNode(fontNamed: "Copperplate")
     var livesLabel = SKLabelNode(fontNamed: "Copperplate")
 
@@ -390,18 +388,6 @@ class Game: SKScene {
         addChild(bossLabel)
         
         
-    }
-    
-    func makeButtonNode(){
-        button = SKSpriteNode(imageNamed: "real")
-        button.position = CGPoint(x:size.width * 0.8, y: size.height * 0.15)
-        button.zPosition = 5
-        button.name = "back"
-        button.setScale(size.height/size.width * 0.2)
-        addChild(button)
-        
-        // make code that makes a button to toggle a monkey menu of sorts
-        //thing to the right of bloons where you can buy and hover over stuff.
     }
     
     func makeStartButtonNode(){
