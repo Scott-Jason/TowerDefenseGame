@@ -57,6 +57,7 @@ class Game: SKScene {
   
     var button = SKSpriteNode()
     var startButton = SKSpriteNode()
+    var startText = SKLabelNode()
     
     //labels
     var moneyLabel = SKLabelNode(fontNamed: "Copperplate")
@@ -193,8 +194,27 @@ class Game: SKScene {
                 towerArr.append(newTower)
             }
             
+            if (touchedNode.name == "buyNinja" && moneyAmt >= 60) {
+                moneyAmt -= 60
+                placed = false
+                newTower = towers()
+                newTower.bulletSpeed = 0.17
+                newTower.tower = SKSpriteNode(imageNamed: "ninja")
+                newTower.tower.zPosition = 5
+                newTower.tower.xScale = (size.height/size.width * 0.2)
+                newTower.tower.yScale = (size.height/size.width * 0.2)
+                addChild(newTower.tower)
+                newTower.range = SKSpriteNode(imageNamed: "zone")
+                newTower.range.zPosition = 4
+                newTower.range.alpha = 0.5
+                newTower.range.xScale = (size.height/size.width * 2.0)
+                newTower.range.yScale = (size.height/size.width * 2.0)
+                addChild(newTower.range)
+                towerArr.append(newTower)
+            }
             
-            if touchedNode == startButton { //User pressed start roudnd button
+            
+            if (touchedNode == startButton || touchedNode == startText) { //User pressed start roudnd button
                 roundNum += 1
                 print("test")
                 switch roundNum{
@@ -214,6 +234,14 @@ class Game: SKScene {
                     spawnNum = 100
                 case 8:
                     spawnNum = 120
+                case 9:
+                    spawnNum = 140
+                case 10:
+                    spawnNum = 160
+                case 11:
+                    spawnNum = 180
+                case 12:
+                    spawnNum = 200
                 default:
                     print("yipee")
                 }
@@ -284,8 +312,11 @@ class Game: SKScene {
                         if(roundNum < 5){
                             tower.bulletWork(enemy: balloonNode, valToSubtract: 0.01)
                         }
-                        if(roundNum >= 5 && roundNum <= 8){
-                            tower.bulletWork(enemy: balloonNode, valToSubtract: 0.005) //takes 3 hits now 
+                        else if(roundNum >= 5 && roundNum <= 8){
+                            tower.bulletWork(enemy: balloonNode, valToSubtract: 0.005) //takes 3 hits now
+                        }
+                        else if(roundNum >= 9 && roundNum <= 12){
+                            tower.bulletWork(enemy: balloonNode, valToSubtract: 0.003) // 4 hits 
                         }
                     }
                 }
@@ -400,6 +431,20 @@ class Game: SKScene {
         bossLabel.fontName = "Times New Roman"
         addChild(bossLabel)
         
+        let ninjaTower = SKSpriteNode(imageNamed: "ninja")
+        ninjaTower.name = "buyNinja"
+        ninjaTower.position = CGPoint(x:size.width * 0.81, y: size.height * 0.34)
+        ninjaTower.zPosition = 5
+        ninjaTower.xScale = (size.height/size.width * 0.2)
+        ninjaTower.yScale = (size.height/size.width * 0.2)
+        addChild(ninjaTower)
+        let ninjaLabel = SKLabelNode(text: "costs 60")
+        ninjaLabel.zPosition = 5
+        ninjaLabel.position = CGPoint(x:size.width * 0.81, y: size.height * 0.22)
+        ninjaLabel.fontSize = 15
+        ninjaLabel.fontName = "Times New Roman"
+        addChild(ninjaLabel)
+        
         
     }
     
@@ -412,7 +457,7 @@ class Game: SKScene {
         startButton.zRotation = -.pi / 2
         self.addChild(startButton)
         
-        let startText = SKLabelNode(text: "Start Round")
+        startText = SKLabelNode(text: "Start Round")
         startText.fontColor = UIColor.white
         startText.position = CGPoint(x: 0, y: 0)
         startText.fontSize = 110
