@@ -53,7 +53,7 @@
                 if(enemy.intersects(bullet)){
                     lock = false
                     moneyAmt += 1
-                    enemy.alpha -= CGFloat(valToSubtract) //can now control how many hits it takes to kill balloons 
+                    enemy.alpha -= CGFloat(valToSubtract) //can now control how many hits it takes to kill balloons
                     print(enemy.alpha)
                     if(enemy.alpha <= 0.99){
                         let cycleTime = SKAction.animate(with:blimTex2, timePerFrame: 0.1)
