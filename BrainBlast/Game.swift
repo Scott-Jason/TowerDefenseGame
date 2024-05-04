@@ -343,7 +343,7 @@ class Game: SKScene {
     }
     
     func makeMenu(){
-        let menu = SKSpriteNode(imageNamed: "plank360x360")
+        let menu = SKSpriteNode(imageNamed: "finalmenu")
         menu.position = CGPoint(x: size.width * 0.88 , y: size.height * 0.5)
         menu.zPosition = 4
         menu.zRotation = .pi / 2 //rotating with pi /2 and whatever
@@ -404,11 +404,12 @@ class Game: SKScene {
     }
     
     func makeStartButtonNode(){
-        startButton = SKSpriteNode(imageNamed: "start")
+        startButton = SKSpriteNode(imageNamed: "smile")
         startButton.zPosition = 5
         startButton.name = "start"
-        startButton.position = CGPoint(x:size.width * 0.88, y: size.height * 0.15)
-        startButton.setScale(size.height/size.width * 0.2)
+        startButton.position = CGPoint(x:size.width * 0.88, y: size.height * 0.17)
+        startButton.setScale(size.height/size.width * 2.5)
+        startButton.zRotation = -.pi / 2
         self.addChild(startButton)
         
         let startText = SKLabelNode(text: "Start Round")
@@ -420,7 +421,7 @@ class Game: SKScene {
         startText.horizontalAlignmentMode = .center  // Align horizontally at center
         startText.zPosition = 6
         startText.name = "start Round text"
-        startButton.addChild(startText)
+        //startButton.addChild(startText)
     }
     
     func makeBalloon(){
