@@ -60,7 +60,7 @@ class Game: SKScene {
     var startText = SKLabelNode()
     
     //labels
-    var moneyLabel = SKLabelNode(fontNamed: "Copperplate")
+    var moneyLabel = SKLabelNode(fontNamed: "INVASION2000.ttf")
     var roundLabel = SKLabelNode(fontNamed: "Copperplate")
     var livesLabel = SKLabelNode(fontNamed: "Copperplate")
 
@@ -147,6 +147,7 @@ class Game: SKScene {
             for tower in towerArr{
                 if touchedNode == tower.tower{
                     tower.range.alpha = 0.5
+                    placed = false
                     
                     //handle upgrades and shit here
                     print("YES!")
@@ -157,7 +158,7 @@ class Game: SKScene {
                 moneyAmt -= 10
                 placed = false
                 newTower = towers()
-                
+               // newTower.towerType = "A"
                 newTower.tower = SKSpriteNode(imageNamed: "pim")
                 newTower.tower.zPosition = 5
                 newTower.tower.xScale = (size.height/size.width * 1)
@@ -211,6 +212,27 @@ class Game: SKScene {
                 newTower.range.yScale = (size.height/size.width * 2.0)
                 addChild(newTower.range)
                 towerArr.append(newTower)
+            }
+            
+            if (touchedNode.name == "buyAlan" ){ //add money to buy him
+                moneyAmt -= 40
+                placed = false
+                newTower = towers()
+                newTower.towerType = "B"
+                newTower.bulletSpeed = 0.19
+                newTower.tower = SKSpriteNode(imageNamed: "circle")
+                newTower.tower.zPosition = 5
+                newTower.tower.xScale = (size.height/size.width * 0.2)
+                newTower.tower.yScale = (size.height/size.width * 0.2)
+                addChild(newTower.tower)
+                newTower.range = SKSpriteNode(imageNamed: "zone")
+                newTower.range.zPosition = 4
+                newTower.range.alpha = 0.5
+                newTower.range.xScale = (size.height/size.width * 1.5)
+                newTower.range.yScale = (size.height/size.width * 1.5)
+                addChild(newTower.range)
+                towerArr.append(newTower)
+                
             }
             
             
@@ -303,12 +325,12 @@ class Game: SKScene {
                 for tower in towerArr{
                     
                     
-                    if(balloonNode.intersects(tower.range)){
+                    if(balloonNode.intersects(tower.range) && tower.towerType == "A"){
                         tower.tower.lookAtNode(balloonNode)
                         tower.shoot(enemy: balloonNode, scene: self)
                        // balloonNode.removeFromParent()
                     }
-                    if(tower.bulletAllowed == false){
+                    if(tower.bulletAllowed == false && tower.towerType == "A"){
                         if(roundNum < 5){
                             tower.bulletWork(enemy: balloonNode, valToSubtract: 0.01)
                         }
@@ -316,8 +338,15 @@ class Game: SKScene {
                             tower.bulletWork(enemy: balloonNode, valToSubtract: 0.005) //takes 3 hits now
                         }
                         else if(roundNum >= 9 && roundNum <= 12){
-                            tower.bulletWork(enemy: balloonNode, valToSubtract: 0.003) // 4 hits 
+                            tower.bulletWork(enemy: balloonNode, valToSubtract: 0.003) // 4 hits
                         }
+                    }
+                    if(balloonNode.intersects(tower.range) && tower.towerType == "B"){
+                        tower.tower.lookAtNode(balloonNode)
+                        tower.throwBoomerang(enemy: balloonNode, scene: self)
+                    }
+                    if(tower.boomAllowed == false && tower.towerType == "B"){
+                        tower.boomWork(enemy: balloonNode)
                     }
                 }
                 
@@ -445,6 +474,22 @@ class Game: SKScene {
         ninjaLabel.fontName = "Times New Roman"
         addChild(ninjaLabel)
         
+        let alanTower = SKSpriteNode(imageNamed: "circle")
+        alanTower.name = "buyAlan"
+        alanTower.position = CGPoint(x:size.width * 0.92, y: size.height * 0.34)
+        alanTower.zPosition = 5
+        alanTower.xScale = (size.height/size.width * 0.2)
+        alanTower.yScale = (size.height/size.width * 0.2)
+        addChild(alanTower)
+        let alanLabel = SKLabelNode(text: "costs 40")
+        alanLabel.zPosition = 5
+        alanLabel.position = CGPoint(x:size.width * 0.95, y: size.height * 0.22)
+        alanLabel.fontSize = 15
+        alanLabel.fontName = "Times New Roman"
+        addChild(alanLabel)
+        
+        
+        
         
     }
     
@@ -461,7 +506,7 @@ class Game: SKScene {
         startText.fontColor = UIColor.white
         startText.position = CGPoint(x: 0, y: 0)
         startText.fontSize = 110
-        startText.fontName = "Copperplate"
+        startText.fontName = "INVASION2000"
         startText.verticalAlignmentMode = .center  // Align vertically at center
         startText.horizontalAlignmentMode = .center  // Align horizontally at center
         startText.zPosition = 6
@@ -511,3 +556,4 @@ class Game: SKScene {
     
   
 }
+
