@@ -182,10 +182,10 @@ class Game: SKScene {
                 placed = false
                 newTower = towers()
                 newTower.bulletSpeed = 0.12
-                newTower.tower = SKSpriteNode(imageNamed: "boss")
+                newTower.tower = SKSpriteNode(imageNamed: "glep")
                 newTower.tower.zPosition = 5
-                newTower.tower.xScale = (size.height/size.width * 1)
-                newTower.tower.yScale = (size.height/size.width * 1)
+                newTower.tower.xScale = -(size.height/size.width * 0.9)
+                newTower.tower.yScale = (size.height/size.width * 0.9)
                 addChild(newTower.tower)
                 newTower.range = SKSpriteNode(imageNamed: "zone")
                 newTower.range.zPosition = 4
@@ -221,10 +221,10 @@ class Game: SKScene {
                 newTower = towers()
                 newTower.towerType = "B"
                 newTower.bulletSpeed = 0.19
-                newTower.tower = SKSpriteNode(imageNamed: "circle")
+                newTower.tower = SKSpriteNode(imageNamed: "alanpng")
                 newTower.tower.zPosition = 5
-                newTower.tower.xScale = (size.height/size.width * 0.2)
-                newTower.tower.yScale = (size.height/size.width * 0.2)
+                newTower.tower.xScale = (size.height/size.width * 1.3)
+                newTower.tower.yScale = (size.height/size.width * 1.3)
                 addChild(newTower.tower)
                 newTower.range = SKSpriteNode(imageNamed: "zone")
                 newTower.range.zPosition = 4
@@ -451,12 +451,12 @@ class Game: SKScene {
         pimLabel.fontName = "Times New Roman"
         addChild(pimLabel)
         
-        let bossTower = SKSpriteNode(imageNamed: "boss")
+        let bossTower = SKSpriteNode(imageNamed: "glep")
         bossTower.name = "buyBoss"
         bossTower.position = CGPoint(x:size.width * 0.96, y: size.height * 0.55)
         bossTower.zPosition = 5
-        bossTower.xScale = (size.height/size.width * 1)
-        bossTower.yScale = (size.height/size.width * 1)
+        bossTower.xScale = -(size.height/size.width * 0.9)
+        bossTower.yScale = (size.height/size.width * 0.9)
         addChild(bossTower)
         let bossLabel = SKLabelNode(text: "costs 30")
         bossLabel.zPosition = 5
@@ -479,12 +479,12 @@ class Game: SKScene {
         ninjaLabel.fontName = "Times New Roman"
         addChild(ninjaLabel)
         
-        let alanTower = SKSpriteNode(imageNamed: "circle")
+        let alanTower = SKSpriteNode(imageNamed: "alanpng")
         alanTower.name = "buyAlan"
         alanTower.position = CGPoint(x:size.width * 0.95, y: size.height * 0.34)
         alanTower.zPosition = 5
-        alanTower.xScale = (size.height/size.width * 0.2)
-        alanTower.yScale = (size.height/size.width * 0.2)
+        alanTower.xScale = (size.height/size.width * 1.3)
+        alanTower.yScale = (size.height/size.width * 1.3)
         addChild(alanTower)
         let alanLabel = SKLabelNode(text: "costs 40")
         alanLabel.zPosition = 5
