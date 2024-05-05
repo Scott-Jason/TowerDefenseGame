@@ -14,6 +14,7 @@
 		53CFED2A2BC9778A00C8AE61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53CFED282BC9778A00C8AE61 /* Main.storyboard */; };
 		53CFED2C2BC9778B00C8AE61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53CFED2B2BC9778B00C8AE61 /* Assets.xcassets */; };
 		53CFED2F2BC9778B00C8AE61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53CFED2D2BC9778B00C8AE61 /* LaunchScreen.storyboard */; };
+		53F2A7092BE705C5002ABCD3 /* INVASION2000.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 53F2A7082BE705C5002ABCD3 /* INVASION2000.TTF */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,8 @@
 		53CFED292BC9778A00C8AE61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		53CFED2B2BC9778B00C8AE61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53CFED2E2BC9778B00C8AE61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		53F2A7052BE702DE002ABCD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53F2A7082BE705C5002ABCD3 /* INVASION2000.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = INVASION2000.TTF; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +60,7 @@
 		53CFED1D2BC9778A00C8AE61 /* BrainBlast */ = {
 			isa = PBXGroup;
 			children = (
+				53F2A7052BE702DE002ABCD3 /* Info.plist */,
 				5315BABD2BCCCA8000E81EC3 /* Game.swift */,
 				53267E692BE2977000DB0B1E /* towers.swift */,
 				53CFED1E2BC9778A00C8AE61 /* AppDelegate.swift */,
@@ -64,6 +68,7 @@
 				53CFED282BC9778A00C8AE61 /* Main.storyboard */,
 				53CFED2B2BC9778B00C8AE61 /* Assets.xcassets */,
 				53CFED2D2BC9778B00C8AE61 /* LaunchScreen.storyboard */,
+				53F2A7082BE705C5002ABCD3 /* INVASION2000.TTF */,
 			);
 			path = BrainBlast;
 			sourceTree = "<group>";
@@ -128,6 +133,7 @@
 			files = (
 				53CFED2A2BC9778A00C8AE61 /* Main.storyboard in Resources */,
 				53CFED2C2BC9778B00C8AE61 /* Assets.xcassets in Resources */,
+				53F2A7092BE705C5002ABCD3 /* INVASION2000.TTF in Resources */,
 				53CFED2F2BC9778B00C8AE61 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,6 +302,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SMPMYADBJ9;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BrainBlast/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -328,6 +335,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SMPMYADBJ9;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BrainBlast/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

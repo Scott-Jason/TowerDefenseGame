@@ -60,9 +60,9 @@ class Game: SKScene {
     var startText = SKLabelNode()
     
     //labels
-    var moneyLabel = SKLabelNode(fontNamed: "INVASION2000.ttf")
-    var roundLabel = SKLabelNode(fontNamed: "Copperplate")
-    var livesLabel = SKLabelNode(fontNamed: "Copperplate")
+    var moneyLabel = SKLabelNode(fontNamed: "Invasion2000")
+    var roundLabel = SKLabelNode(fontNamed: "Invasion2000")
+    var livesLabel = SKLabelNode(fontNamed: "Invasion2000")
 
     
     
