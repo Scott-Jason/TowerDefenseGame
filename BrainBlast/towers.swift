@@ -40,7 +40,7 @@ class towers{
     func throwBoomerang(enemy: SKSpriteNode, scene: SKScene){
         if(boomAllowed)
         {
-            let sound = SKAction.playSoundFileNamed("whoosh", waitForCompletion: false)
+            let sound = SKAction.playSoundFileNamed("woo", waitForCompletion: false)
             self.tower.run(sound)
             boomAllowed = false
             boomerang = SKSpriteNode(imageNamed: "paperclip")

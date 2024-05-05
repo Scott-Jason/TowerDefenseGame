@@ -201,10 +201,10 @@ class Game: SKScene {
                 placed = false
                 newTower = towers()
                 newTower.bulletSpeed = 0.17
-                newTower.tower = SKSpriteNode(imageNamed: "ninja")
+                newTower.tower = SKSpriteNode(imageNamed: "bax")
                 newTower.tower.zPosition = 5
-                newTower.tower.xScale = (size.height/size.width * 0.2)
-                newTower.tower.yScale = (size.height/size.width * 0.2)
+                newTower.tower.xScale = (size.height/size.width * 0.5)
+                newTower.tower.yScale = (size.height/size.width * 0.5)
                 addChild(newTower.tower)
                 newTower.range = SKSpriteNode(imageNamed: "zone")
                 newTower.range.zPosition = 4
@@ -465,12 +465,12 @@ class Game: SKScene {
         bossLabel.fontName = "Times New Roman"
         addChild(bossLabel)
         
-        let ninjaTower = SKSpriteNode(imageNamed: "ninja")
+        let ninjaTower = SKSpriteNode(imageNamed: "bax")
         ninjaTower.name = "buyNinja"
         ninjaTower.position = CGPoint(x:size.width * 0.81, y: size.height * 0.34)
         ninjaTower.zPosition = 5
-        ninjaTower.xScale = (size.height/size.width * 0.2)
-        ninjaTower.yScale = (size.height/size.width * 0.2)
+        ninjaTower.xScale = (size.height/size.width * 0.5)
+        ninjaTower.yScale = (size.height/size.width * 0.5)
         addChild(ninjaTower)
         let ninjaLabel = SKLabelNode(text: "costs 60")
         ninjaLabel.zPosition = 5
