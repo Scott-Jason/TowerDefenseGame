@@ -215,7 +215,7 @@ class Game: SKScene {
                 towerArr.append(newTower)
             }
             
-            if (touchedNode.name == "buyAlan" ){ //add money to buy him
+            if (touchedNode.name == "buyAlan" && moneyAmt >= 40){ //add money to buy him
                 moneyAmt -= 40
                 placed = false
                 newTower = towers()
@@ -453,14 +453,14 @@ class Game: SKScene {
         
         let bossTower = SKSpriteNode(imageNamed: "boss")
         bossTower.name = "buyBoss"
-        bossTower.position = CGPoint(x:size.width * 0.92, y: size.height * 0.55)
+        bossTower.position = CGPoint(x:size.width * 0.96, y: size.height * 0.55)
         bossTower.zPosition = 5
         bossTower.xScale = (size.height/size.width * 1)
         bossTower.yScale = (size.height/size.width * 1)
         addChild(bossTower)
         let bossLabel = SKLabelNode(text: "costs 30")
         bossLabel.zPosition = 5
-        bossLabel.position = CGPoint(x:size.width * 0.92, y: size.height * 0.46)
+        bossLabel.position = CGPoint(x:size.width * 0.95, y: size.height * 0.46)
         bossLabel.fontSize = 15
         bossLabel.fontName = "Times New Roman"
         addChild(bossLabel)
@@ -481,7 +481,7 @@ class Game: SKScene {
         
         let alanTower = SKSpriteNode(imageNamed: "circle")
         alanTower.name = "buyAlan"
-        alanTower.position = CGPoint(x:size.width * 0.92, y: size.height * 0.34)
+        alanTower.position = CGPoint(x:size.width * 0.95, y: size.height * 0.34)
         alanTower.zPosition = 5
         alanTower.xScale = (size.height/size.width * 0.2)
         alanTower.yScale = (size.height/size.width * 0.2)
@@ -539,25 +539,36 @@ class Game: SKScene {
     }
     
     func resetGame() {
-        gameTime = 0
-        moneyAmt = 25
-        roundNum = 0
-        livess = 40
-        spriteSpeed = 250.0
-        spawnNum = 0
-
-        self.enumerateChildNodes(withName: "enemy") { node, _ in
-            node.removeFromParent()
+        // Check if lives are exhausted
+        if livess <= 0 {
+            // Game Over: Transition back to the StartScene
+            if let view = self.view {
+                let transition = SKTransition.flipHorizontal(withDuration: 0.5)
+                let startScene = StartScene(size: view.bounds.size)
+                startScene.scaleMode = .aspectFill
+                view.presentScene(startScene, transition: transition)
+            }
+        } else {
+            // Reset game stats
+            gameTime = 0
+            moneyAmt = 25
+            roundNum = 0
+            livess = 40
+            spriteSpeed = 250.0
+            spawnNum = 0
+            
+            // Remove all enemy and tower nodes
+            self.enumerateChildNodes(withName: "enemy") { node, _ in
+                node.removeFromParent()
+            }
+            for tower in towerArr {
+                tower.tower.removeFromParent()
+                tower.range.removeFromParent()
+            }
+            towerArr.removeAll() // Clears the array of towers
         }
-
-        // removes the towers
-        for tower in towerArr {
-            tower.tower.removeFromParent()
-            tower.range.removeFromParent()
-        }
-        towerArr.removeAll() // Clears the array of towers
-        
     }
+
 
 
     

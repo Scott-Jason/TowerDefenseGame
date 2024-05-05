@@ -18,6 +18,7 @@
 		53F2A70B2BE71099002ABCD3 /* thing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53F2A70A2BE71099002ABCD3 /* thing.mp3 */; };
 		53F2A70D2BE71181002ABCD3 /* monster.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53F2A70C2BE71181002ABCD3 /* monster.mp3 */; };
 		53F2A70F2BE71291002ABCD3 /* scream.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53F2A70E2BE71291002ABCD3 /* scream.mp3 */; };
+		78B5DB392BE7E4400022667C /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B5DB382BE7E4400022667C /* StartScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		53F2A70A2BE71099002ABCD3 /* thing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thing.mp3; sourceTree = "<group>"; };
 		53F2A70C2BE71181002ABCD3 /* monster.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = monster.mp3; sourceTree = "<group>"; };
 		53F2A70E2BE71291002ABCD3 /* scream.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scream.mp3; sourceTree = "<group>"; };
+		78B5DB382BE7E4400022667C /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 		53CFED122BC9778A00C8AE61 = {
 			isa = PBXGroup;
 			children = (
+				78B5DB382BE7E4400022667C /* StartScene.swift */,
 				53CFED1D2BC9778A00C8AE61 /* BrainBlast */,
 				53CFED1C2BC9778A00C8AE61 /* Products */,
 			);
@@ -160,6 +163,7 @@
 				53CFED272BC9778A00C8AE61 /* GameViewController.swift in Sources */,
 				53CFED1F2BC9778A00C8AE61 /* AppDelegate.swift in Sources */,
 				5315BABE2BCCCA8000E81EC3 /* Game.swift in Sources */,
+				78B5DB392BE7E4400022667C /* StartScene.swift in Sources */,
 				53267E6A2BE2977000DB0B1E /* towers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
