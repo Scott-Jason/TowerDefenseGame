@@ -79,7 +79,7 @@ class towers{
     func shoot(enemy: SKSpriteNode, scene: SKScene){
         if(bulletAllowed){
             bulletAllowed = false
-            if(self.bulletSpeed != 0.12){
+            if(self.bulletSpeed != 0.25){
                 bullet = SKSpriteNode(imageNamed: "bullet")
                 bullet.xScale = 2.0
                 bullet.yScale = 2.0

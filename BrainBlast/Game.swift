@@ -181,7 +181,7 @@ class Game: SKScene {
                 moneyAmt -= 30
                 placed = false
                 newTower = towers()
-                newTower.bulletSpeed = 0.12
+                newTower.bulletSpeed = 0.25
                 newTower.tower = SKSpriteNode(imageNamed: "glep")
                 newTower.tower.zPosition = 5
                 newTower.tower.xScale = -(size.height/size.width * 0.9)
@@ -395,6 +395,8 @@ class Game: SKScene {
         bg.yScale = scaleFactor
 
         addChild(bg) // adds it as a child of the scene
+        let sound = SKAction.playSoundFileNamed("yoshi", waitForCompletion: false)
+        bg.run(sound)
         
         //this was just for pathing, like how far each should move thing
         let g = SKSpriteNode(imageNamed:"grid")
