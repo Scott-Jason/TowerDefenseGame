@@ -113,6 +113,8 @@ class towers{
                     enemy.run(repeatForever)
                 }
                 if(enemy.alpha <= 0.98){
+                    let sound = SKAction.playSoundFileNamed("scream", waitForCompletion: false)
+                    self.tower.run(sound)
                     enemy.removeFromParent()
                 }
                 

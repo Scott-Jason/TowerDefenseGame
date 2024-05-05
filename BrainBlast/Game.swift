@@ -33,6 +33,7 @@ var roundNum = 0
 var livess = 40
 var spriteSpeed = 250.0
 var spawnNum = 0
+var randomVal = 0
 
 
 
@@ -237,6 +238,9 @@ class Game: SKScene {
             
             
             if (touchedNode == startButton || touchedNode == startText) { //User pressed start roudnd button
+                let sound = SKAction.playSoundFileNamed("monster", waitForCompletion: false)
+                touchedNode.run(sound)
+                
                 roundNum += 1
                 print("test")
                 switch roundNum{
@@ -304,6 +308,7 @@ class Game: SKScene {
     //where balloons spawn and despawn
     override func update(_ currentTime: TimeInterval) {
         gameTime += 1
+        //randomVal = Double.random(in: 0.1...0.3)
         //labels updating
         moneyLabel.text = "Money = \(moneyAmt)"
         roundLabel.text = "Round = \(roundNum)"
@@ -403,13 +408,13 @@ class Game: SKScene {
     }
     
     func makeMenu(){
-        let menu = SKSpriteNode(imageNamed: "finalmenu")
+        let menu = SKSpriteNode(imageNamed: "COOL")
         menu.position = CGPoint(x: size.width * 0.88 , y: size.height * 0.5)
         menu.zPosition = 4
         menu.zRotation = .pi / 2 //rotating with pi /2 and whatever
        // menu.setScale(size.height/size.width * 2.55)
-        menu.xScale = (size.height/size.width * 2.55)
-        menu.yScale = (size.height/size.width * 3)
+        menu.xScale = (size.height/size.width * 0.73)
+        menu.yScale = (size.height/size.width * 0.42)
         //menu.xScale = (size.height/size.width * 1.1)
         addChild(menu)
         
@@ -516,6 +521,7 @@ class Game: SKScene {
     
     func makeBalloon(){
         ball = SKSpriteNode(texture: blimbleeTexture[0])
+       // let sound = SKAction.playSoundFileNamed("thing", waitForCompletion: false)
         ball.name = "enemy"
         ball.alpha = 1.0
         // negative 0.1
@@ -524,6 +530,7 @@ class Game: SKScene {
         ball.xScale = (size.height/size.width * 0.6)
         ball.yScale = (size.height/size.width * 0.6)
         addChild(ball)
+      //  ball.run(sound)
         let cycleTime = SKAction.animate(with:blimbleeTexture, timePerFrame: 0.1)
         let repeatForever = SKAction.repeatForever(cycleTime)
         let group = SKAction.group([pathing, repeatForever])

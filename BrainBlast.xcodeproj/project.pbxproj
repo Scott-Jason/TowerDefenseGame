@@ -15,6 +15,9 @@
 		53CFED2C2BC9778B00C8AE61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53CFED2B2BC9778B00C8AE61 /* Assets.xcassets */; };
 		53CFED2F2BC9778B00C8AE61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53CFED2D2BC9778B00C8AE61 /* LaunchScreen.storyboard */; };
 		53F2A7092BE705C5002ABCD3 /* INVASION2000.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 53F2A7082BE705C5002ABCD3 /* INVASION2000.TTF */; };
+		53F2A70B2BE71099002ABCD3 /* thing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53F2A70A2BE71099002ABCD3 /* thing.mp3 */; };
+		53F2A70D2BE71181002ABCD3 /* monster.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53F2A70C2BE71181002ABCD3 /* monster.mp3 */; };
+		53F2A70F2BE71291002ABCD3 /* scream.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53F2A70E2BE71291002ABCD3 /* scream.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		53CFED2E2BC9778B00C8AE61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53F2A7052BE702DE002ABCD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53F2A7082BE705C5002ABCD3 /* INVASION2000.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = INVASION2000.TTF; sourceTree = "<group>"; };
+		53F2A70A2BE71099002ABCD3 /* thing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thing.mp3; sourceTree = "<group>"; };
+		53F2A70C2BE71181002ABCD3 /* monster.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = monster.mp3; sourceTree = "<group>"; };
+		53F2A70E2BE71291002ABCD3 /* scream.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scream.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,9 @@
 				53CFED2B2BC9778B00C8AE61 /* Assets.xcassets */,
 				53CFED2D2BC9778B00C8AE61 /* LaunchScreen.storyboard */,
 				53F2A7082BE705C5002ABCD3 /* INVASION2000.TTF */,
+				53F2A70A2BE71099002ABCD3 /* thing.mp3 */,
+				53F2A70C2BE71181002ABCD3 /* monster.mp3 */,
+				53F2A70E2BE71291002ABCD3 /* scream.mp3 */,
 			);
 			path = BrainBlast;
 			sourceTree = "<group>";
@@ -131,10 +140,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53F2A70B2BE71099002ABCD3 /* thing.mp3 in Resources */,
 				53CFED2A2BC9778A00C8AE61 /* Main.storyboard in Resources */,
 				53CFED2C2BC9778B00C8AE61 /* Assets.xcassets in Resources */,
+				53F2A70F2BE71291002ABCD3 /* scream.mp3 in Resources */,
 				53F2A7092BE705C5002ABCD3 /* INVASION2000.TTF in Resources */,
 				53CFED2F2BC9778B00C8AE61 /* LaunchScreen.storyboard in Resources */,
+				53F2A70D2BE71181002ABCD3 /* monster.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
