@@ -215,7 +215,7 @@ class Game: SKScene {
                 towerArr.append(newTower)
             }
             
-            if (touchedNode.name == "buyAlan" ){ //add money to buy him
+            if (touchedNode.name == "buyAlan" && moneyAmt >= 40){ //add money to buy him
                 moneyAmt -= 40
                 placed = false
                 newTower = towers()
@@ -453,14 +453,14 @@ class Game: SKScene {
         
         let bossTower = SKSpriteNode(imageNamed: "boss")
         bossTower.name = "buyBoss"
-        bossTower.position = CGPoint(x:size.width * 0.92, y: size.height * 0.55)
+        bossTower.position = CGPoint(x:size.width * 0.96, y: size.height * 0.55)
         bossTower.zPosition = 5
         bossTower.xScale = (size.height/size.width * 1)
         bossTower.yScale = (size.height/size.width * 1)
         addChild(bossTower)
         let bossLabel = SKLabelNode(text: "costs 30")
         bossLabel.zPosition = 5
-        bossLabel.position = CGPoint(x:size.width * 0.92, y: size.height * 0.46)
+        bossLabel.position = CGPoint(x:size.width * 0.95, y: size.height * 0.46)
         bossLabel.fontSize = 15
         bossLabel.fontName = "Times New Roman"
         addChild(bossLabel)
@@ -481,7 +481,7 @@ class Game: SKScene {
         
         let alanTower = SKSpriteNode(imageNamed: "circle")
         alanTower.name = "buyAlan"
-        alanTower.position = CGPoint(x:size.width * 0.92, y: size.height * 0.34)
+        alanTower.position = CGPoint(x:size.width * 0.95, y: size.height * 0.34)
         alanTower.zPosition = 5
         alanTower.xScale = (size.height/size.width * 0.2)
         alanTower.yScale = (size.height/size.width * 0.2)
