@@ -40,6 +40,8 @@ class towers{
     func throwBoomerang(enemy: SKSpriteNode, scene: SKScene){
         if(boomAllowed)
         {
+            let sound = SKAction.playSoundFileNamed("whoosh", waitForCompletion: false)
+            self.tower.run(sound)
             boomAllowed = false
             boomerang = SKSpriteNode(imageNamed: "paperclip")
             boomerang.xScale = 0.1
@@ -77,15 +79,26 @@ class towers{
     func shoot(enemy: SKSpriteNode, scene: SKScene){
         if(bulletAllowed){
             bulletAllowed = false
-            bullet = SKSpriteNode(imageNamed: "bullet")
+            if(self.bulletSpeed != 0.12){
+                bullet = SKSpriteNode(imageNamed: "bullet")
+                bullet.xScale = 2.0
+                bullet.yScale = 2.0
+            }else{
+                bullet = SKSpriteNode(imageNamed: "fireball")
+                bullet.xScale = 0.8
+                bullet.yScale = 0.8
+            }
+           
             let pos = enemy.position
-            bullet.xScale = 2.0
-            bullet.yScale = 2.0
+          //  bullet.xScale = 2.0
+         //   bullet.yScale = 2.0
             bullet.name = "bullet"
-            bullet.zPosition = 20
+            bullet.zPosition = 4
             bullet.position = tower.position
             let moveAction = SKAction.move(to: pos, duration: bulletSpeed)
             scene.addChild(bullet)
+            let sound = SKAction.playSoundFileNamed("boom", waitForCompletion: false)
+            self.tower.run(sound)
             
             bullet.run(moveAction){
                 self.bulletAllowed = true
